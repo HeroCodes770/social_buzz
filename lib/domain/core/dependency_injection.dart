@@ -23,3 +23,9 @@ final authRepositoryImplProvider = Provider((ref) {
   final appWriteServices = ref.watch(appWriteService); 
   return AuthRepositoryImpl(appWriteServices: appWriteServices);
 });
+
+
+final databaseProvider = Provider((ref) {
+  final client  = ref.watch(clientProvider);
+  return Databases(client);
+});

@@ -13,7 +13,7 @@ abstract class Routing {
 
 class RoutingImpl implements Routing {
   @override
-  String get initialPage => SplashScreen.id;
+  String get initialPage => RegisterScreen.id;
 
   @override
   List<GetPage> get pages => <GetPage>[

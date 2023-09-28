@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' as models;
 
@@ -7,8 +9,8 @@ class AppWriteServices {
   AppWriteServices({required Account account}) : _account = account;
 
   Future register({
-    required email,
-    required password,
+    required String email,
+    required String password,
   }) async {
     try {
       final res = await _account.create(
@@ -18,8 +20,10 @@ class AppWriteServices {
       );
       return res;
     } on AppwriteException catch (e) {
+      log('We are here ${e.toString()}');
       return e.response;
     } catch (e) {
+      log(e.toString());
       return;
     }
   }

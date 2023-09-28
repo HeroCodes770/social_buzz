@@ -3,12 +3,12 @@ import 'package:dartz/dartz.dart';
 
 abstract class IAuthRepository {
   Future<Either<String, models.User>> register({
-    required email,
-    required password,
+    required String email,
+    required String  password,
   });
   Future<Either<String, models.Session>> login({
-    required email,
-    required password,
+    required  String email,
+    required  String password,
   });
 
 Future<Either<String, models.User>> getCurrentUser();
