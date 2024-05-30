@@ -11,6 +11,8 @@ abstract class IAuthRepository {
     required  String password,
   });
 
-Future<Either<String, models.User>> getCurrentUser();
+Future< models.User?> getCurrentUser();
+
+Future<dynamic> logOut();
 
 }

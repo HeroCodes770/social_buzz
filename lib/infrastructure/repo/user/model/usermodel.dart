@@ -1,16 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-
-
-
 
 class UserModel {
   final String email;
   final String name;
-  final List<String> followers;
-  final List<String> following;
+  final List<dynamic> followers;
+  final List<dynamic> following;
   final String profilePic;
   final String uid;
   final String bio;
@@ -64,19 +60,16 @@ class UserModel {
     return UserModel(
       email: map['email'] as String,
       name: map['name'] as String,
-      followers: List<String>.from((map['followers'] as List<String>)),
-      following: List<String>.from((map['following'] as List<String>)),
+      followers: List<dynamic>.from((map['followers'] as List<dynamic>)),
+      following: List<dynamic>.from((map['following'] as List<dynamic>)),
       profilePic: map['profilePic'] as String,
-      uid: map['\$id'] as String,
+      uid: map['\$id'] ?? "",
       bio: map['bio'] as String,
       isVerified: map['isVerified'] as bool,
     );
   }
 
-  String toJson() => json.encode(toMap());
-
-  factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
-
+ 
   @override
   String toString() {
     return 'UserModel(email: $email, name: $name, followers: $followers, following: $following, profilePic: $profilePic, uid: $uid, bio: $bio, isVerified: $isVerified)';

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:social_buzz/domain/core/constants/appwrite_constants.dart';
@@ -23,18 +24,33 @@ class UserRepositoryImpl implements UserRepository {
       await _databases.createDocument(
         databaseId: AppWriteConstants.databaseId,
         collectionId: AppWriteConstants.usersCollectionId,
-        documentId: ID.unique(),
+        documentId: userModel.uid,
         data: userModel.toMap(),
       );
 
-      log('UserModel --> ${userModel.toJson()}');
       return const Right(unit);
     } on AppwriteException catch (e) {
-       log('appwrite error --> ${e.toString()}');
       return Left(e.message!);
     } catch (e) {
-      log('catch error --> ${e.toString()}');
-     return Left(e.toString());
+      return Left(e.toString());
+    }
+  }
+
+  @override
+  Future<Document> getUserData(String uid) async {
+    try {
+      final db = await _databases.getDocument(
+        databaseId: AppWriteConstants.databaseId,
+        collectionId: AppWriteConstants.usersCollectionId,
+        documentId: uid,
+      );
+      return db;
+    } on AppwriteException catch (e) {
+      log('This is the exception getting user data ${e.toString()}');
+      rethrow;
+    } catch (e) {
+       log('This is the exception-catch block getting user data ${e.toString()}');
+      rethrow;
     }
   }
 }

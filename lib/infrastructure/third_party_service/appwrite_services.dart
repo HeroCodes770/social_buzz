@@ -48,4 +48,9 @@ class AppWriteServices {
       rethrow;
     }
   }
+
+  Future<dynamic> logOut() async {
+    final user = await _account.deleteSessions();
+    return user;
+  }
 }

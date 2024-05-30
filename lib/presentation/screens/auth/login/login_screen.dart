@@ -8,7 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:social_buzz/application/auth/auth_notifier.dart';
 import 'package:social_buzz/application/auth/auth_states.dart';
 import 'package:social_buzz/presentation/screens/auth/register/register_screen.dart';
-import 'package:social_buzz/presentation/screens/main/home/home_screen.dart';
+import 'package:social_buzz/presentation/screens/main/wrapper/pages_wrapper.dart';
 import 'package:social_buzz/presentation/widgets/customButtons.dart';
 
 class LoginScreen extends HookConsumerWidget {
@@ -29,7 +29,7 @@ class LoginScreen extends HookConsumerWidget {
       state.userAuthenticatingStage.when(
           data: (stage) {
             if (stage == AuthEnumState.loggedIn) {
-              Get.offAllNamed(HomeScreen.id);
+              Get.offAllNamed(PagesWrapper.id);
             }
           },
           error: (error, stk) {},

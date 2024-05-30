@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' as models;
 import 'package:dartz/dartz.dart';
@@ -20,8 +22,10 @@ class AuthRepositoryImpl implements IAuthRepository {
       );
       return right(res);
     } on AppwriteException catch (e) {
+    log(e.toString());
       return Left(e.message!);
     } catch (e) {
+        log(e.toString());
       return Left(e.toString());
     }
   }
@@ -44,19 +48,25 @@ class AuthRepositoryImpl implements IAuthRepository {
   }
 
   @override
-  Future<Either<String, models.User>> getCurrentUser() async {
+  Future< models.User?> getCurrentUser() async {
     try {
       final response = await _appWriteServices.currentUser();
 
       if (response.email.isNotEmpty) {
-        return right(response);
+        return response;
       } else {
-        return const Left('Failed to get user');
+        return null;
       }
     } on AppwriteException catch (e) {
-      return Left(e.message!);
+       e;
     } catch (e) {
       rethrow;
     }
+  }
+  
+  @override
+  Future logOut()  async {
+   final loggedOutUser = await _appWriteServices.logOut();
+   return loggedOutUser;
   }
 }

@@ -3,7 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:social_buzz/presentation/screens/auth/login/login_screen.dart';
 import 'package:social_buzz/presentation/screens/auth/register/register_screen.dart';
 import 'package:social_buzz/presentation/screens/intro/splash_screen.dart';
-import 'package:social_buzz/presentation/screens/main/home/home_screen.dart';
+import 'package:social_buzz/presentation/screens/main/home/components/create_a_tweet_screen.dart';
+import 'package:social_buzz/presentation/screens/main/wrapper/pages_wrapper.dart';
 
 abstract class Routing {
   String get initialPage;
@@ -13,7 +14,7 @@ abstract class Routing {
 
 class RoutingImpl implements Routing {
   @override
-  String get initialPage => RegisterScreen.id;
+  String get initialPage => SplashScreen.id;
 
   @override
   List<GetPage> get pages => <GetPage>[
@@ -30,8 +31,12 @@ class RoutingImpl implements Routing {
           page: () => LoginScreen(),
         ),
         GetPage(
-          name: HomeScreen.id,
-          page: () => const HomeScreen(),
+          name: PagesWrapper.id,
+          page: () => const PagesWrapper(),
+        ),
+         GetPage(
+          name: CreateNewTweet.id,
+          page: () =>  const CreateNewTweet(),
         ),
         
       ];

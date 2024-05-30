@@ -12,20 +12,28 @@ final clientProvider = Provider((ref) {
       .setSelfSigned(status: true);
 });
 
-
-final appWriteService = Provider((ref){
+final appWriteService = Provider((ref) {
   final client = ref.watch(clientProvider);
   return AppWriteServices(account: Account(client));
 });
 
-
 final authRepositoryImplProvider = Provider((ref) {
-  final appWriteServices = ref.watch(appWriteService); 
+  final appWriteServices = ref.watch(appWriteService);
   return AuthRepositoryImpl(appWriteServices: appWriteServices);
 });
 
-
 final databaseProvider = Provider((ref) {
-  final client  = ref.watch(clientProvider);
+  final client = ref.watch(clientProvider);
   return Databases(client);
+});
+
+final storageProvider = Provider((ref) {
+  final client = ref.watch(clientProvider);
+  return Storage(client);
+});
+
+
+final realTimeProvider = Provider((ref){
+   final client = ref.watch(clientProvider);
+   return Realtime(client);
 });
